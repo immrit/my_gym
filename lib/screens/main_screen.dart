@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_gym/screens/report_screen.dart';
+import 'package:searchbar_animation/searchbar_animation.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -9,6 +10,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,16 +18,44 @@ class _MainScreenState extends State<MainScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: Colors.black,
-        child: Icon(Icons.add, color: Colors.white),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
-      body: SizedBox(
-        width: double.infinity,
-        child: Column(
-          children: [
-            Row(
-              children: [Text("تزاکنش")],
-            )
-          ],
+      body: SafeArea(
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: SearchBarAnimation(
+                        textEditingController: searchController,
+                        isOriginalAnimation: false,
+                        buttonWidget: const Icon(Icons.search),
+                        secondaryButtonWidget: const Icon(Icons.close),
+                        trailingWidget: const Icon(Icons.search),
+                        hintText: "جستجو",
+                        searchBoxWidth: 290,
+                        textAlignToRight: true,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: const Text(
+                      "باشگاه من",
+                      style: TextStyle(
+                          fontFamily: "iran",
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -42,8 +72,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
-    MainScreen(),
-    ReportScreen(),
+    const MainScreen(),
+    const ReportScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -67,7 +97,7 @@ class _MainPageState extends State<MainPage> {
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 5,
                 blurRadius: 7,
-                offset: Offset(0, 5), // changes position of shadow
+                offset: const Offset(0, 5), // changes position of shadow
               ),
             ],
           ),

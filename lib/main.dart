@@ -14,10 +14,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'My Gym',
       theme: ThemeData(
+        fontFamily: 'iran',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: MainPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
