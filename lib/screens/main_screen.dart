@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_gym/screens/new_member.dart';
 import 'package:my_gym/screens/report_screen.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 
@@ -16,7 +17,8 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Navigator.of(context)
+            .push(MaterialPageRoute(builder: (c) => NewMember())),
         backgroundColor: Colors.black,
         child: const Icon(Icons.add, color: Colors.white),
       ),
@@ -42,9 +44,9 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: const Text(
+                  const Padding(
+                    padding: EdgeInsets.only(right: 20),
+                    child: Text(
                       "باشگاه من",
                       style: TextStyle(
                           fontFamily: "iran",
@@ -53,7 +55,10 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   )
                 ],
-              )
+              ),
+              const Spacer(),
+              const Text("اطلاعاتی موجود نیست"),
+              const Spacer(),
             ],
           ),
         ),

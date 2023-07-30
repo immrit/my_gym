@@ -78,7 +78,7 @@ flutter:
   fonts:
     - family: iran
       fonts:
-        - asset: assets/fonts/iran.ttf
+        - asset: lib/assets/fonts/iran.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
