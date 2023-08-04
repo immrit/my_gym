@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:searchbar_animation/searchbar_animation.dart';
+
+import 'package:my_gym/models/users.dart';
 import 'package:my_gym/screens/new_member.dart';
 import 'package:my_gym/screens/report_screen.dart';
-import 'package:searchbar_animation/searchbar_animation.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
+  static List<Users> users = [
+    Users(id: 0, name: "ahmad", nationalCode: "181012568974"),
+    Users(id: 1, name: "ali", nationalCode: "189555265")
+  ];
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -14,53 +20,93 @@ class _MainScreenState extends State<MainScreen> {
   final TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context)
-            .push(MaterialPageRoute(builder: (c) => NewMember())),
-        backgroundColor: Colors.black,
-        child: const Icon(Icons.add, color: Colors.white),
-      ),
-      body: SafeArea(
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: SearchBarAnimation(
-                        textEditingController: searchController,
-                        isOriginalAnimation: false,
-                        buttonWidget: const Icon(Icons.search),
-                        secondaryButtonWidget: const Icon(Icons.close),
-                        trailingWidget: const Icon(Icons.search),
-                        hintText: "جستجو",
-                        searchBoxWidth: 290,
-                        textAlignToRight: true,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Navigator.of(context)
+              .push(MaterialPageRoute(builder: (c) => const NewMember())),
+          backgroundColor: Colors.black,
+          child: const Icon(Icons.add, color: Colors.white),
+        ),
+        body: SafeArea(
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: SearchBarAnimation(
+                          textEditingController: searchController,
+                          isOriginalAnimation: false,
+                          buttonWidget: const Icon(Icons.search),
+                          secondaryButtonWidget: const Icon(Icons.close),
+                          trailingWidget: const Icon(Icons.search),
+                          hintText: "جستجو",
+                          searchBoxWidth: 290,
+                          textAlignToRight: true,
+                        ),
                       ),
                     ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(right: 20),
-                    child: Text(
-                      "باشگاه من",
-                      style: TextStyle(
-                          fontFamily: "iran",
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              ),
-              const Spacer(),
-              const Text("اطلاعاتی موجود نیست"),
-              const Spacer(),
-            ],
+                    const Padding(
+                      padding: EdgeInsets.only(right: 20),
+                      child: Text(
+                        "باشگاه من",
+                        style: TextStyle(
+                            fontFamily: "iran",
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
+                ),
+                // const Spacer(),
+                // const Text("اطلاعاتی موجود نیست"),
+                // const Spacer(),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: MainScreen.users.length,
+                      itemBuilder: (context, index) {
+                        return ListTileWidget(
+                          index: index,
+                        );
+                      }),
+                )
+              ],
+            ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class ListTileWidget extends StatelessWidget {
+  final int index;
+
+  const ListTileWidget({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(right: 25, left: 25, top: 10),
+      child: SizedBox(
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(MainScreen.users[index].name),
+            Text(MainScreen.users[index].nationalCode),
+            Divider(
+              thickness: 1,
+            )
+          ],
         ),
       ),
     );
