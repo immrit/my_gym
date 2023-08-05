@@ -95,7 +95,7 @@ class ListTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 25, left: 25, top: 10),
+      padding: const EdgeInsets.only(right: 25, left: 25, top: 10),
       child: SizedBox(
         width: double.infinity,
         child: Column(
@@ -103,7 +103,7 @@ class ListTileWidget extends StatelessWidget {
           children: [
             Text(MainScreen.users[index].name),
             Text(MainScreen.users[index].nationalCode),
-            Divider(
+            const Divider(
               thickness: 1,
             )
           ],

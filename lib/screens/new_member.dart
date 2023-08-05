@@ -19,19 +19,19 @@ class _NewMemberState extends State<NewMember> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 "افزودن ورزشکار",
                 style: TextStyle(fontSize: 18),
               ),
-              MyTextField(
+              const MyTextField(
                 name: 'نام و نام خانوادگی',
                 type: TextInputType.text,
               ),
-              MyTextField(
+              const MyTextField(
                 name: 'نام پدر',
                 type: TextInputType.text,
               ),
-              MyTextField(
+              const MyTextField(
                 name: 'کد ملی',
                 type: TextInputType.number,
               ),
@@ -54,7 +54,7 @@ class _NewMemberState extends State<NewMember> {
                     padding: const EdgeInsets.all(10.0),
                     child: OutlinedButton(
                       onPressed: () {},
-                      child: Text("تاریخ"),
+                      child: const Text("تاریخ"),
                       // style: ButtonStyle(
                       //     backgroundColor:
                       //         MaterialStateProperty.all(Colors.blue.shade100)),
@@ -66,7 +66,7 @@ class _NewMemberState extends State<NewMember> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: Text("ثبت نام"),
+                  child: const Text("ثبت نام"),
                 ),
               )
             ],
