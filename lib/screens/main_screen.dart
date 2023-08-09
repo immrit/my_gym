@@ -5,12 +5,11 @@ import 'package:my_gym/models/users.dart';
 import 'package:my_gym/screens/new_member.dart';
 import 'package:my_gym/screens/report_screen.dart';
 
+import 'datailScreen.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
-  static List<Users> users = [
-    Users(id: 0, name: "ahmad", nationalCode: "181012568974"),
-    Users(id: 1, name: "ali", nationalCode: "189555265")
-  ];
+  static List<Users> users = [];
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -25,7 +24,10 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: Colors.white,
         floatingActionButton: FloatingActionButton(
           onPressed: () => Navigator.of(context)
-              .push(MaterialPageRoute(builder: (c) => const NewMember())),
+              .push(MaterialPageRoute(builder: (c) => const NewMember()))
+              .then((value) {
+            setState(() {});
+          }),
           backgroundColor: Colors.black,
           child: const Icon(Icons.add, color: Colors.white),
         ),
@@ -95,18 +97,27 @@ class ListTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 25, left: 25, top: 10),
-      child: SizedBox(
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(MainScreen.users[index].name),
-            Text(MainScreen.users[index].nationalCode),
-            Divider(
-              thickness: 1,
-            )
-          ],
+      padding: const EdgeInsets.only(right: 25, left: 25, top: 10),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext b) => DatailScreen(
+                    index: index,
+                  )));
+        },
+        child: Container(
+          color: Colors.transparent,
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(MainScreen.users[index].name),
+              Text(MainScreen.users[index].nationalCode),
+              const Divider(
+                thickness: 1,
+              )
+            ],
+          ),
         ),
       ),
     );
