@@ -97,27 +97,18 @@ class ListTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 25, left: 25, top: 10),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext b) => DatailScreen(
-                    index: index,
-                  )));
-        },
-        child: Container(
-          color: Colors.transparent,
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(MainScreen.users[index].name),
-              Text(MainScreen.users[index].nationalCode),
-              const Divider(
-                thickness: 1,
-              )
-            ],
-          ),
+      padding: EdgeInsets.only(right: 25, left: 25, top: 10),
+      child: SizedBox(
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(MainScreen.users[index].name),
+            Text(MainScreen.users[index].nationalCode),
+            Divider(
+              thickness: 1,
+            )
+          ],
         ),
       ),
     );

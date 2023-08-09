@@ -31,17 +31,17 @@ class _NewMemberState extends State<NewMember> {
                 "افزودن ورزشکار",
                 style: TextStyle(fontSize: 18),
               ),
-              MyTextField(
+              const MyTextField(
                 name: 'نام و نام خانوادگی',
                 type: TextInputType.text,
                 controller: NewMember.nameControll,
               ),
-              MyTextField(
+              const MyTextField(
                 name: 'نام پدر',
                 type: TextInputType.text,
                 controller: NewMember.fatherNameControll,
               ),
-              MyTextField(
+              const MyTextField(
                 name: 'کد ملی',
                 type: TextInputType.number,
                 controller: NewMember.nationalCodeControll,
@@ -73,10 +73,10 @@ class _NewMemberState extends State<NewMember> {
                     padding: const EdgeInsets.all(10.0),
                     child: OutlinedButton(
                       onPressed: () {},
-                      child: const Text(
-                        "تاریخ",
-                        style: TextStyle(color: Colors.black),
-                      ),
+                      child: Text("تاریخ"),
+                      // style: ButtonStyle(
+                      //     backgroundColor:
+                      //         MaterialStateProperty.all(Colors.blue.shade100)),
                     ),
                   ),
                 ],
@@ -84,24 +84,8 @@ class _NewMemberState extends State<NewMember> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    MainScreen.users.add(
-                      Users(
-                          id: Random().nextInt(100000),
-                          name: NewMember.nameControll.text,
-                          nationalCode: NewMember.nationalCodeControll.text,
-                          fatherName: NewMember.fatherNameControll.text,
-                          date: '1402/01/01',
-                          gender: NewMember.groupId == 1 ? true : false),
-                    );
-                    NewMember.nameControll.clear();
-                    NewMember.fatherNameControll.clear();
-                    NewMember.nationalCodeControll.clear();
-                    NewMember.groupId = 0;
-
-                    Navigator.pop(context);
-                  },
-                  child: const Text("ثبت نام"),
+                  onPressed: () {},
+                  child: Text("ثبت نام"),
                 ),
               )
             ],
