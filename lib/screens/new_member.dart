@@ -27,21 +27,21 @@ class _NewMemberState extends State<NewMember> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 "افزودن ورزشکار",
                 style: TextStyle(fontSize: 18),
               ),
-              const MyTextField(
+              MyTextField(
                 name: 'نام و نام خانوادگی',
                 type: TextInputType.text,
                 controller: NewMember.nameControll,
               ),
-              const MyTextField(
+              MyTextField(
                 name: 'نام پدر',
                 type: TextInputType.text,
                 controller: NewMember.fatherNameControll,
               ),
-              const MyTextField(
+              MyTextField(
                 name: 'کد ملی',
                 type: TextInputType.number,
                 controller: NewMember.nationalCodeControll,
