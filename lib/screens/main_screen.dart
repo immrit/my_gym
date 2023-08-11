@@ -5,11 +5,12 @@ import 'package:my_gym/models/users.dart';
 import 'package:my_gym/screens/new_member.dart';
 import 'package:my_gym/screens/report_screen.dart';
 
-import 'datailScreen.dart';
-
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
-  static List<Users> users = [];
+  static List<Users> users = [
+    Users(id: 0, name: "ahmad", nationalCode: "181012568974"),
+    Users(id: 1, name: "ali", nationalCode: "189555265")
+  ];
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -24,10 +25,7 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: Colors.white,
         floatingActionButton: FloatingActionButton(
           onPressed: () => Navigator.of(context)
-              .push(MaterialPageRoute(builder: (c) => const NewMember()))
-              .then((value) {
-            setState(() {});
-          }),
+              .push(MaterialPageRoute(builder: (c) => const NewMember())),
           backgroundColor: Colors.black,
           child: const Icon(Icons.add, color: Colors.white),
         ),

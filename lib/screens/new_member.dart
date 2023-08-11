@@ -1,15 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:my_gym/models/users.dart';
-import 'package:my_gym/screens/main_screen.dart';
 
 class NewMember extends StatefulWidget {
   const NewMember({super.key});
-  static int groupId = 0;
-  static TextEditingController nameControll = TextEditingController();
-  static TextEditingController fatherNameControll = TextEditingController();
-  static TextEditingController nationalCodeControll = TextEditingController();
 
   @override
   State<NewMember> createState() => _NewMemberState();
@@ -34,39 +26,28 @@ class _NewMemberState extends State<NewMember> {
               MyTextField(
                 name: 'نام و نام خانوادگی',
                 type: TextInputType.text,
-                controller: NewMember.nameControll,
               ),
               MyTextField(
                 name: 'نام پدر',
                 type: TextInputType.text,
-                controller: NewMember.fatherNameControll,
               ),
               MyTextField(
                 name: 'کد ملی',
                 type: TextInputType.number,
-                controller: NewMember.nationalCodeControll,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   MyRadio(
-                    groupValue: NewMember.groupId,
-                    onChanged: (value) {
-                      setState(() {
-                        NewMember.groupId = value!;
-                      });
-                    },
-                    value: 1,
+                    groupValue: 1000,
+                    onChanged: (value) {},
+                    value: 0,
                     text: 'خانم',
                   ),
                   MyRadio(
-                    groupValue: NewMember.groupId,
-                    onChanged: (value) {
-                      setState(() {
-                        NewMember.groupId = value!;
-                      });
-                    },
-                    value: 2,
+                    groupValue: 1000,
+                    onChanged: (value) {},
+                    value: 1,
                     text: 'آقا',
                   ),
                   Padding(
@@ -115,12 +96,7 @@ class MyRadio extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Radio(
-          value: value,
-          groupValue: groupValue,
-          onChanged: onChanged,
-          activeColor: Colors.black,
-        ),
+        Radio(value: value, groupValue: groupValue, onChanged: onChanged),
         Text(text),
       ],
     );
@@ -130,12 +106,10 @@ class MyRadio extends StatelessWidget {
 class MyTextField extends StatelessWidget {
   final String name;
   final TextInputType type;
-  final TextEditingController controller;
   const MyTextField({
     Key? key,
     required this.name,
     required this.type,
-    required this.controller,
   }) : super(key: key);
 
   @override
@@ -145,7 +119,6 @@ class MyTextField extends StatelessWidget {
       child: TextField(
         textAlign: TextAlign.right,
         keyboardType: type,
-        controller: controller,
         decoration: InputDecoration(
             hintText: name,
             border:
