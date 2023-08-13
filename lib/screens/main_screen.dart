@@ -86,7 +86,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-class ListTileWidget extends StatelessWidget {
+class ListTileWidget extends StatefulWidget {
   final int index;
 
   const ListTileWidget({
@@ -95,14 +95,44 @@ class ListTileWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ListTileWidget> createState() => _ListTileWidgetState();
+}
+
+class _ListTileWidgetState extends State<ListTileWidget> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 25, left: 25, top: 10),
       child: GestureDetector(
+        onLongPress: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  content: Text(
+                      textAlign: TextAlign.right,
+                      "آیا از حذف این آیتم اطمینان دارید؟"),
+                  actions: [
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text("خیر")),
+                    ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            MainScreen.users.removeAt(widget.index);
+                          });
+                        },
+                        child: Text("بله")),
+                  ],
+                );
+              });
+        },
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext b) => DatailScreen(
-                    index: index,
+                    index: widget.index,
                   )));
         },
         child: Container(
@@ -111,8 +141,8 @@ class ListTileWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(MainScreen.users[index].name),
-              Text(MainScreen.users[index].nationalCode),
+              Text(MainScreen.users[widget.index].name),
+              Text(MainScreen.users[widget.index].nationalCode),
               const Divider(
                 thickness: 1,
               )
