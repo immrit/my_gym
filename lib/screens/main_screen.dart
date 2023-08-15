@@ -65,17 +65,22 @@ class _MainScreenState extends State<MainScreen> {
                     )
                   ],
                 ),
-                // const Spacer(),
-                // const Text("اطلاعاتی موجود نیست"),
-                // const Spacer(),
                 Expanded(
-                  child: ListView.builder(
-                      itemCount: MainScreen.users.length,
-                      itemBuilder: (context, index) {
-                        return ListTileWidget(
-                          index: index,
-                        );
-                      }),
+                  child: MainScreen.users.isEmpty
+                      ? const Column(
+                          children: [
+                            Spacer(),
+                            Text("اطلاعاتی موجود نیست"),
+                            Spacer(),
+                          ],
+                        )
+                      : ListView.builder(
+                          itemCount: MainScreen.users.length,
+                          itemBuilder: (context, index) {
+                            return ListTileWidget(
+                              index: index,
+                            );
+                          }),
                 )
               ],
             ),
@@ -109,7 +114,7 @@ class _ListTileWidgetState extends State<ListTileWidget> {
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  content: Text(
+                  content: const Text(
                       textAlign: TextAlign.right,
                       "آیا از حذف این آیتم اطمینان دارید؟"),
                   actions: [
@@ -117,14 +122,14 @@ class _ListTileWidgetState extends State<ListTileWidget> {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child: Text("خیر")),
+                        child: const Text("خیر")),
                     ElevatedButton(
                         onPressed: () {
                           setState(() {
                             MainScreen.users.removeAt(widget.index);
                           });
                         },
-                        child: Text("بله")),
+                        child: const Text("بله")),
                   ],
                 );
               });
