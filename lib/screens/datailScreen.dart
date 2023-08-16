@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:my_gym/screens/main_screen.dart';
+import 'package:my_gym/screens/new_member.dart';
 
 class DatailScreen extends StatefulWidget {
   final int index;
@@ -17,7 +18,6 @@ class _DatailScreenState extends State<DatailScreen> {
   int index = 0;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     index = widget.index;
   }
@@ -26,20 +26,30 @@ class _DatailScreenState extends State<DatailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(''),
+        centerTitle: true,
+        title: const Text(
+          'جزییات اطلاعات',
+          style: TextStyle(fontSize: 16),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () => Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => NewMember())),
+              icon: Icon(Icons.edit))
+        ],
       ),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         child: Column(
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               backgroundImage: NetworkImage(
                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS38DwDrD_4VaUHAYdbZIqC3TRmRWrUH4i98Vtjvi7SLeJ5btJFCc-aUmDwAzm6BXcT2vI&usqp=CAU'),
               maxRadius: 50,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 35),
-              child: Text(" ${MainScreen.users[this.index].id}  :کد پرسنلی"),
+              child: Text(" ${MainScreen.users[index].id}  :کد پرسنلی"),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 30),
@@ -56,31 +66,25 @@ class _DatailScreenState extends State<DatailScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text(" ${MainScreen.users[this.index].fatherName}  :نام پدر"),
+                  Text(" ${MainScreen.users[index].fatherName}  :نام پدر"),
                   Text(
-                      "جنسیت:   ${MainScreen.users[this.index].gender ? false == "خانم" : "آقا"}"),
+                      "جنسیت:   ${MainScreen.users[index].gender ? false == "خانم" : "آقا"}"),
                 ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 25),
-              child:
-                  Text(" ${MainScreen.users[this.index].date}  :تازیخ عضویت"),
+              child: Text(" ${MainScreen.users[index].date}  :تازیخ عضویت"),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 220),
-              child: SizedBox(
-                  width: 300,
+              child: Container(
+                  width: 260,
                   child: ElevatedButton(
-                      // style: ButtonStyle(
-                      //     textStyle: MaterialStateProperty.resolveWith(
-                      //         (states) => TextStyle(color: Colors.amber)),
-                      //     backgroundColor: MaterialStateColor.resolveWith(
-                      //         (states) => Colors.black)),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text("بازگشت"))),
+                      child: const Text("بازگشت"))),
             )
           ],
         ),

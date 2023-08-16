@@ -77,8 +77,44 @@ class _MainScreenState extends State<MainScreen> {
                       : ListView.builder(
                           itemCount: MainScreen.users.length,
                           itemBuilder: (context, index) {
-                            return ListTileWidget(
-                              index: index,
+                            return GestureDetector(
+                              onLongPress: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        content: const Text(
+                                            textAlign: TextAlign.right,
+                                            "آیا از حذف این آیتم اطمینان دارید؟"),
+                                        actions: [
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text("خیر")),
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                //! Delete item
+                                                setState(() {
+                                                  MainScreen.users
+                                                      .removeAt(index);
+                                                  Navigator.of(context).pop();
+                                                });
+                                              },
+                                              child: const Text("بله")),
+                                        ],
+                                      );
+                                    });
+                              },
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext b) => DatailScreen(
+                                          index: index,
+                                        )));
+                              },
+                              child: ListTileWidget(
+                                index: index,
+                              ),
                             );
                           }),
                 )
@@ -107,39 +143,7 @@ class _ListTileWidgetState extends State<ListTileWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 25, left: 25, top: 10),
-      child: GestureDetector(
-        onLongPress: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  content: const Text(
-                      textAlign: TextAlign.right,
-                      "آیا از حذف این آیتم اطمینان دارید؟"),
-                  actions: [
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text("خیر")),
-                    ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            MainScreen.users.removeAt(widget.index);
-                          });
-                        },
-                        child: const Text("بله")),
-                  ],
-                );
-              });
-        },
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext b) => DatailScreen(
-                    index: widget.index,
-                  )));
-        },
+        padding: const EdgeInsets.only(right: 25, left: 25, top: 10),
         child: Container(
           color: Colors.transparent,
           width: double.infinity,
@@ -153,9 +157,7 @@ class _ListTileWidgetState extends State<ListTileWidget> {
               )
             ],
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
 
