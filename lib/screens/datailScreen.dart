@@ -32,9 +32,27 @@ class _DatailScreenState extends State<DatailScreen> {
           style: TextStyle(fontSize: 16),
         ),
         actions: [
+          /*
+            Edite Action
+          */
+
           IconButton(
-              onPressed: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => NewMember())),
+              onPressed: () {
+                NewMember.nameControll.text = MainScreen.users[index].name;
+                NewMember.nationalCodeControll.text =
+                    MainScreen.users[index].nationalCode;
+                NewMember.fatherNameControll.text =
+                    MainScreen.users[index].fatherName;
+                NewMember.groupId = MainScreen.users[index].gender ? 1 : 2;
+                NewMember.isEditing = true;
+                NewMember.index = index;
+
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => NewMember()))
+                    .then((value) {
+                  setState(() {});
+                });
+              },
               icon: Icon(Icons.edit))
         ],
       ),
@@ -68,7 +86,7 @@ class _DatailScreenState extends State<DatailScreen> {
                 children: [
                   Text(" ${MainScreen.users[index].fatherName}  :نام پدر"),
                   Text(
-                      "جنسیت:   ${MainScreen.users[index].gender ? false == "خانم" : "آقا"}"),
+                      "جنسیت:   ${MainScreen.users[index].gender ? 1 == "خانم" : "آقا"}"),
                 ],
               ),
             ),

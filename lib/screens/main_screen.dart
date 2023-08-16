@@ -23,11 +23,18 @@ class _MainScreenState extends State<MainScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.of(context)
-              .push(MaterialPageRoute(builder: (c) => const NewMember()))
-              .then((value) {
-            setState(() {});
-          }),
+          onPressed: () {
+            NewMember.isEditing = false;
+            NewMember.nameControll.text = '';
+            NewMember.fatherNameControll.text = '';
+            NewMember.nationalCodeControll.text = '';
+            NewMember.groupId = 0;
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (c) => const NewMember()))
+                .then((value) {
+              setState(() {});
+            });
+          },
           backgroundColor: Colors.black,
           child: const Icon(Icons.add, color: Colors.white),
         ),
@@ -75,6 +82,7 @@ class _MainScreenState extends State<MainScreen> {
                           ],
                         )
                       : ListView.builder(
+                          reverse: false,
                           itemCount: MainScreen.users.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(

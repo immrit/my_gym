@@ -10,7 +10,8 @@ class NewMember extends StatefulWidget {
   static TextEditingController nameControll = TextEditingController();
   static TextEditingController fatherNameControll = TextEditingController();
   static TextEditingController nationalCodeControll = TextEditingController();
-
+  static bool isEditing = false;
+  static int index = 0;
   @override
   State<NewMember> createState() => _NewMemberState();
 }
@@ -27,8 +28,8 @@ class _NewMemberState extends State<NewMember> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                "افزودن ورزشکار",
+              Text(
+                NewMember.isEditing ? "ویرایش اطلاعات" : "افزودن ورزشکار",
                 style: TextStyle(fontSize: 18),
               ),
               MyTextField(
@@ -85,23 +86,22 @@ class _NewMemberState extends State<NewMember> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    MainScreen.users.add(
-                      Users(
-                          id: Random().nextInt(100000),
-                          name: NewMember.nameControll.text,
-                          nationalCode: NewMember.nationalCodeControll.text,
-                          fatherName: NewMember.fatherNameControll.text,
-                          date: '1402/01/01',
-                          gender: NewMember.groupId == 1 ? true : false),
-                    );
-                    NewMember.nameControll.clear();
-                    NewMember.fatherNameControll.clear();
-                    NewMember.nationalCodeControll.clear();
-                    NewMember.groupId = 0;
+                    Users item = Users(
+                        id: Random().nextInt(100000),
+                        name: NewMember.nameControll.text,
+                        nationalCode: NewMember.nationalCodeControll.text,
+                        fatherName: NewMember.fatherNameControll.text,
+                        date: '1402/01/01',
+                        gender: NewMember.groupId == 1 ? true : false);
+                    if (NewMember.isEditing) {
+                      MainScreen.users[NewMember.index] = item;
+                    } else {
+                      MainScreen.users.add(item);
+                    }
 
                     Navigator.pop(context);
                   },
-                  child: const Text("ثبت نام"),
+                  child: Text(NewMember.isEditing ? "ویرایش" : "ثبت نام"),
                 ),
               )
             ],
