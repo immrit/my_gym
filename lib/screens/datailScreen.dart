@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_gym/main.dart';
-
 import 'package:my_gym/screens/main_screen.dart';
-import 'package:my_gym/screens/new_member.dart';
 
 class DatailScreen extends StatefulWidget {
   final int index;
@@ -88,7 +86,7 @@ class _DatailScreenState extends State<DatailScreen> {
                 children: [
                   Text(" ${MainScreen.users[index].fatherName}  :نام پدر"),
                   Text(
-                      "جنسیت:   ${MainScreen.users[index].gender ? 1 == "خانم" : "آقا"}"),
+                      "جنسیت:   ${MainScreen.users[index].gender == 1 ? "خانم" : "آقا"}"),
                 ],
               ),
             ),
