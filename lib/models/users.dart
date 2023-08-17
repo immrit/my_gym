@@ -3,17 +3,17 @@ part 'users.g.dart';
 
 @HiveType(typeId: 0)
 class Users {
-  @HiveField(0)
-  int id;
   @HiveField(1)
-  String name;
+  int id;
   @HiveField(2)
-  String nationalCode;
+  String name;
   @HiveField(3)
-  String fatherName;
+  String nationalCode;
   @HiveField(4)
-  String date;
+  String fatherName;
   @HiveField(5)
+  String date;
+  @HiveField(6)
   bool gender;
 
   Users({

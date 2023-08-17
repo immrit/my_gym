@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:my_gym/models/users.dart';
 import 'package:my_gym/screens/main_screen.dart';
+import 'package:hive/hive.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(UsersAdapter());
+  await Hive.openBox<Users>('users');
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  static void getData() {
+    Box<Users> hiveBox = Hive.box('users');
+    MainScreen.users.clear();
+    for (var value in hiveBox.values) {
+      MainScreen.users.add(value);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

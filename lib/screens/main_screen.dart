@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:my_gym/main.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 
 import 'package:my_gym/models/users.dart';
@@ -18,6 +20,14 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final TextEditingController searchController = TextEditingController();
   @override
+  void initState() {
+    MyApp.getData();
+    super.initState();
+  }
+
+  Box<Users> hiveBox = Hive.box('users');
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -32,6 +42,7 @@ class _MainScreenState extends State<MainScreen> {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (c) => const NewMember()))
                 .then((value) {
+              MyApp.getData();
               setState(() {});
             });
           },
@@ -60,20 +71,22 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                       ),
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(right: 20),
-                      child: Text(
-                        "باشگاه من",
-                        style: TextStyle(
-                            fontFamily: "iran",
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
+                      child: GestureDetector(
+                        child: Text(
+                          "باشگاه من",
+                          style: TextStyle(
+                              fontFamily: "iran",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     )
                   ],
                 ),
                 Expanded(
-                  child: MainScreen.users.isEmpty
+                  child: hiveBox.values.isEmpty
                       ? const Column(
                           children: [
                             Spacer(),
@@ -83,7 +96,7 @@ class _MainScreenState extends State<MainScreen> {
                         )
                       : ListView.builder(
                           reverse: false,
-                          itemCount: MainScreen.users.length,
+                          itemCount: hiveBox.values.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onLongPress: () {
@@ -104,8 +117,10 @@ class _MainScreenState extends State<MainScreen> {
                                               onPressed: () {
                                                 //! Delete item
                                                 setState(() {
-                                                  MainScreen.users
-                                                      .removeAt(index);
+                                                  // MainScreen.users
+                                                  //     .removeAt(index);
+                                                  hiveBox.deleteAt(index);
+                                                  MyApp.getData();
                                                   Navigator.of(context).pop();
                                                 });
                                               },
@@ -155,14 +170,43 @@ class _ListTileWidgetState extends State<ListTileWidget> {
         child: Container(
           color: Colors.transparent,
           width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(MainScreen.users[widget.index].name),
-              Text(MainScreen.users[widget.index].nationalCode),
-              const Divider(
-                thickness: 1,
-              )
+              // Edite Action
+
+              IconButton(
+                  onPressed: () {
+                    NewMember.nameControll.text =
+                        MainScreen.users[widget.index].name;
+                    NewMember.nationalCodeControll.text =
+                        MainScreen.users[widget.index].nationalCode;
+                    NewMember.fatherNameControll.text =
+                        MainScreen.users[widget.index].fatherName;
+                    NewMember.groupId =
+                        MainScreen.users[widget.index].gender ? 1 : 2;
+                    NewMember.isEditing = true;
+                    NewMember.index = widget.index;
+
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(
+                            builder: (context) => const NewMember()))
+                        .then((value) {
+                      MyApp.getData();
+                      setState(() {});
+                    });
+                  },
+                  icon: const Icon(Icons.edit)),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(MainScreen.users[widget.index].name),
+                  Text(MainScreen.users[widget.index].nationalCode),
+                  const Divider(
+                    thickness: 1,
+                  )
+                ],
+              ),
             ],
           ),
         ));

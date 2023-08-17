@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:my_gym/main.dart';
 import 'package:my_gym/models/users.dart';
 import 'package:my_gym/screens/main_screen.dart';
 
@@ -17,6 +19,7 @@ class NewMember extends StatefulWidget {
 }
 
 class _NewMemberState extends State<NewMember> {
+  Box<Users> hiveBox = Hive.box('users');
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -94,9 +97,12 @@ class _NewMemberState extends State<NewMember> {
                         date: '1402/01/01',
                         gender: NewMember.groupId == 1 ? true : false);
                     if (NewMember.isEditing) {
-                      MainScreen.users[NewMember.index] = item;
+                      // MainScreen.users[NewMember.index] = item;
+                      hiveBox.putAt(NewMember.index, item);
+                      MyApp.getData();
                     } else {
-                      MainScreen.users.add(item);
+                      // MainScreen.users.add(item);
+                      hiveBox.add(item);
                     }
 
                     Navigator.pop(context);

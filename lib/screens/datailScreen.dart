@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_gym/main.dart';
 
 import 'package:my_gym/screens/main_screen.dart';
 import 'package:my_gym/screens/new_member.dart';
@@ -31,30 +32,31 @@ class _DatailScreenState extends State<DatailScreen> {
           'جزییات اطلاعات',
           style: TextStyle(fontSize: 16),
         ),
-        actions: [
-          /*
-            Edite Action
-          */
+        // actions: [
+        //   /*
+        //     Edite Action
+        //   */
+        //   IconButton(
+        //       onPressed: () {
+        //         NewMember.nameControll.text = MainScreen.users[index].name;
+        //         NewMember.nationalCodeControll.text =
+        //             MainScreen.users[index].nationalCode;
+        //         NewMember.fatherNameControll.text =
+        //             MainScreen.users[index].fatherName;
+        //         NewMember.groupId = MainScreen.users[index].gender ? 1 : 2;
+        //         NewMember.isEditing = true;
+        //         NewMember.index = index;
 
-          IconButton(
-              onPressed: () {
-                NewMember.nameControll.text = MainScreen.users[index].name;
-                NewMember.nationalCodeControll.text =
-                    MainScreen.users[index].nationalCode;
-                NewMember.fatherNameControll.text =
-                    MainScreen.users[index].fatherName;
-                NewMember.groupId = MainScreen.users[index].gender ? 1 : 2;
-                NewMember.isEditing = true;
-                NewMember.index = index;
-
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => NewMember()))
-                    .then((value) {
-                  setState(() {});
-                });
-              },
-              icon: Icon(Icons.edit))
-        ],
+        //         Navigator.of(context)
+        //             .push(MaterialPageRoute(
+        //                 builder: (context) => const NewMember()))
+        //             .then((value) {
+        //           MyApp.getData();
+        //           setState(() {});
+        //         });
+        //       },
+        //       icon: const Icon(Icons.edit))
+        // ],
       ),
       body: SizedBox(
         width: double.infinity,
@@ -100,6 +102,9 @@ class _DatailScreenState extends State<DatailScreen> {
                   width: 260,
                   child: ElevatedButton(
                       onPressed: () {
+                        setState(() {
+                          MyApp.getData();
+                        });
                         Navigator.of(context).pop();
                       },
                       child: const Text("بازگشت"))),

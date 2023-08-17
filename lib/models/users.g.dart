@@ -17,12 +17,12 @@ class UsersAdapter extends TypeAdapter<Users> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Users(
-      id: fields[0] as int,
-      name: fields[1] as String,
-      nationalCode: fields[2] as String,
-      fatherName: fields[3] as String,
-      date: fields[4] as String,
-      gender: fields[5] as bool,
+      id: fields[1] as int,
+      name: fields[2] as String,
+      nationalCode: fields[3] as String,
+      fatherName: fields[4] as String,
+      date: fields[5] as String,
+      gender: fields[6] as bool,
     );
   }
 
@@ -30,17 +30,17 @@ class UsersAdapter extends TypeAdapter<Users> {
   void write(BinaryWriter writer, Users obj) {
     writer
       ..writeByte(6)
-      ..writeByte(0)
-      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.name)
+      ..write(obj.id)
       ..writeByte(2)
-      ..write(obj.nationalCode)
+      ..write(obj.name)
       ..writeByte(3)
-      ..write(obj.fatherName)
+      ..write(obj.nationalCode)
       ..writeByte(4)
-      ..write(obj.date)
+      ..write(obj.fatherName)
       ..writeByte(5)
+      ..write(obj.date)
+      ..writeByte(6)
       ..write(obj.gender);
   }
 
