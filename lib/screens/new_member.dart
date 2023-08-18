@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:my_gym/main.dart';
 import 'package:my_gym/models/users.dart';
-import 'package:my_gym/screens/main_screen.dart';
 
 class NewMember extends StatefulWidget {
   const NewMember({super.key});
@@ -13,7 +12,7 @@ class NewMember extends StatefulWidget {
   static TextEditingController fatherNameControll = TextEditingController();
   static TextEditingController nationalCodeControll = TextEditingController();
   static bool isEditing = false;
-  static int index = 0;
+  static int id = 0;
   @override
   State<NewMember> createState() => _NewMemberState();
 }
@@ -22,6 +21,7 @@ class _NewMemberState extends State<NewMember> {
   Box<Users> hiveBox = Hive.box('users');
   @override
   Widget build(BuildContext context) {
+    print(NewMember.id);
     return SafeArea(
       child: Scaffold(
           body: Container(
@@ -98,7 +98,7 @@ class _NewMemberState extends State<NewMember> {
                         gender: NewMember.groupId == 1 ? true : false);
                     if (NewMember.isEditing) {
                       // MainScreen.users[NewMember.index] = item;
-                      hiveBox.putAt(NewMember.index, item);
+                      hiveBox.putAt(NewMember.id, item);
                       MyApp.getData();
                     } else {
                       // MainScreen.users.add(item);

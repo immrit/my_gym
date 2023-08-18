@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:my_gym/main.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
-
 import 'package:my_gym/models/users.dart';
 import 'package:my_gym/screens/new_member.dart';
 import 'package:my_gym/screens/report_screen.dart';
-
 import 'datailScreen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -68,25 +66,42 @@ class _MainScreenState extends State<MainScreen> {
                           hintText: "جستجو",
                           searchBoxWidth: 290,
                           textAlignToRight: true,
+                          onFieldSubmitted: (String text) {
+                            List<Users> result = hiveBox.values
+                                .where((value) =>
+                                    value.name.contains(text) ||
+                                    value.nationalCode.contains(text))
+                                .toList();
+
+                            MainScreen.users.clear();
+                            setState(() {
+                              for (var value in result) {
+                                MainScreen.users.add(value);
+                              }
+                            });
+                          },
+                          onCollapseComplete: () {
+                            MyApp.getData();
+                            searchController.clear();
+                            setState(() {});
+                          },
                         ),
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(right: 20),
-                      child: GestureDetector(
-                        child: Text(
-                          "باشگاه من",
-                          style: TextStyle(
-                              fontFamily: "iran",
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
+                      child: Text(
+                        "باشگاه من",
+                        style: TextStyle(
+                            fontFamily: "iran",
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
                       ),
                     )
                   ],
                 ),
                 Expanded(
-                  child: hiveBox.values.isEmpty
+                  child: MainScreen.users.isEmpty
                       ? const Column(
                           children: [
                             Spacer(),
@@ -96,7 +111,7 @@ class _MainScreenState extends State<MainScreen> {
                         )
                       : ListView.builder(
                           reverse: false,
-                          itemCount: hiveBox.values.length,
+                          itemCount: MainScreen.users.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onLongPress: () {
@@ -186,7 +201,7 @@ class _ListTileWidgetState extends State<ListTileWidget> {
                     NewMember.groupId =
                         MainScreen.users[widget.index].gender ? 1 : 2;
                     NewMember.isEditing = true;
-                    NewMember.index = widget.index;
+                    NewMember.id = MainScreen.users[widget.index].id;
 
                     Navigator.of(context)
                         .push(MaterialPageRoute(
