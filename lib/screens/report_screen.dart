@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_gym/utils/calculate.dart';
+import 'package:my_gym/widgets/chart.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -10,23 +12,34 @@ class ReportScreen extends StatefulWidget {
 class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: SizedBox(
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(top: 20, right: 20),
                 child: Text(
                   "آمار اطلاعاتی باشگاه",
                   style: TextStyle(fontSize: 18),
                 ),
               ),
-              InfoItem(text: "   :ثبت نام امروز", number: "0"),
-              InfoItem(text: "   :ثبت نام این ماه", number: "0"),
-              InfoItem(text: "   :ثبت نام امسال", number: "0")
+              InfoItem(
+                  text: "   :دریافتی های امروز",
+                  number: Calculate.mToday().toString()),
+              InfoItem(
+                  text: "   :دریافتی های این ماه",
+                  number: Calculate.mMonth().toString()),
+              InfoItem(
+                  text: "   :دریافتی های امسال",
+                  number: Calculate.myear().toString()),
+              Container(
+                  width: double.infinity,
+                  height: 350,
+                  padding: EdgeInsets.only(top: 150),
+                  child: BarChartWidget())
             ],
           ),
         ),
@@ -50,7 +63,7 @@ class InfoItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 25, right: 20),
       child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-        Text(number),
+        Text("${number}  تومان", textDirection: TextDirection.rtl),
         Text(text),
       ]),
     );

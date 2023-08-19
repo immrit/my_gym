@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:my_gym/models/users.dart';
 import 'package:my_gym/screens/main_screen.dart';
-import 'package:hive/hive.dart';
 
 void main() async {
   await Hive.initFlutter();

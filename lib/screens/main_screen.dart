@@ -36,7 +36,10 @@ class _MainScreenState extends State<MainScreen> {
             NewMember.nameControll.text = '';
             NewMember.fatherNameControll.text = '';
             NewMember.nationalCodeControll.text = '';
+            NewMember.amountControll.text = '';
+            NewMember.date = 'تاریخ';
             NewMember.groupId = 0;
+            NewMember.payMethod = 0;
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (c) => const NewMember()))
                 .then((value) {
@@ -192,14 +195,19 @@ class _ListTileWidgetState extends State<ListTileWidget> {
 
               IconButton(
                   onPressed: () {
+                    NewMember.date = MainScreen.users[widget.index].date;
                     NewMember.nameControll.text =
                         MainScreen.users[widget.index].name;
                     NewMember.nationalCodeControll.text =
                         MainScreen.users[widget.index].nationalCode;
                     NewMember.fatherNameControll.text =
                         MainScreen.users[widget.index].fatherName;
+                    NewMember.amountControll.text =
+                        MainScreen.users[widget.index].amount;
                     NewMember.groupId =
                         MainScreen.users[widget.index].gender ? 1 : 2;
+                    NewMember.payMethod =
+                        MainScreen.users[widget.index].payment_method ? 1 : 2;
                     NewMember.isEditing = true;
                     NewMember.id = MainScreen.users[widget.index].id;
 

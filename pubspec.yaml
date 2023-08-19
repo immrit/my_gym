@@ -29,10 +29,12 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
+  fl_chart: ^0.63.0
   flutter:
     sdk: flutter
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  persian_datetime_picker: ^2.4.0
   searchbar_animation: ^0.0.4
 
 dev_dependencies:

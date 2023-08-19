@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/home/mrit/flutter"
-export "FLUTTER_APPLICATION_PATH=/media/mrit/01D89DDB091D3F60/Projects/my_gym"
+export "FLUTTER_ROOT=E:\flutter"
+export "FLUTTER_APPLICATION_PATH=E:\Projects\my_gym"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"

@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+
 part 'users.g.dart';
 
 @HiveType(typeId: 0)
@@ -15,6 +16,10 @@ class Users {
   String date;
   @HiveField(6)
   bool gender;
+  @HiveField(7)
+  String amount;
+  @HiveField(8)
+  bool payment_method;
 
   Users({
     required this.id,
@@ -23,5 +28,7 @@ class Users {
     required this.fatherName,
     required this.date,
     required this.gender,
+    required this.amount,
+    required this.payment_method,
   });
 }

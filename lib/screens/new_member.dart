@@ -4,15 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:my_gym/main.dart';
 import 'package:my_gym/models/users.dart';
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 class NewMember extends StatefulWidget {
   const NewMember({super.key});
   static int groupId = 0;
+  static int payMethod = 0;
   static TextEditingController nameControll = TextEditingController();
   static TextEditingController fatherNameControll = TextEditingController();
   static TextEditingController nationalCodeControll = TextEditingController();
+  static TextEditingController amountControll = TextEditingController();
   static bool isEditing = false;
   static int id = 0;
+  static String date = "تاریخ";
   @override
   State<NewMember> createState() => _NewMemberState();
 }
@@ -33,7 +37,7 @@ class _NewMemberState extends State<NewMember> {
             children: [
               Text(
                 NewMember.isEditing ? "ویرایش اطلاعات" : "افزودن ورزشکار",
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
               MyTextField(
                 name: 'نام و نام خانوادگی',
@@ -49,6 +53,36 @@ class _NewMemberState extends State<NewMember> {
                 name: 'کد ملی',
                 type: TextInputType.number,
                 controller: NewMember.nationalCodeControll,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  MyRadio(
+                    groupValue: NewMember.payMethod,
+                    onChanged: (value) {
+                      setState(() {
+                        NewMember.payMethod = value!;
+                      });
+                    },
+                    value: 1,
+                    text: 'نقد',
+                  ),
+                  MyRadio(
+                    groupValue: NewMember.payMethod,
+                    onChanged: (value) {
+                      setState(() {
+                        NewMember.payMethod = value!;
+                      });
+                    },
+                    value: 2,
+                    text: 'اقساط',
+                  ),
+                ],
+              ),
+              MyTextField(
+                name: 'مبلغ شهریه',
+                type: TextInputType.number,
+                controller: NewMember.amountControll,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -76,10 +110,29 @@ class _NewMemberState extends State<NewMember> {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "تاریخ",
-                        style: TextStyle(color: Colors.black),
+                      onPressed: () async {
+                        var pickedDate = await showPersianDatePicker(
+                            context: context,
+                            initialDate: Jalali.now(),
+                            firstDate: Jalali(1402),
+                            lastDate: Jalali(1499));
+                        setState(() {
+                          String year = pickedDate!.year.toString();
+                          //
+                          String month = pickedDate.month.toString().length == 1
+                              ? '0${pickedDate.month.toString()}'
+                              : pickedDate.month.toString();
+                          //
+                          String day = pickedDate.day.toString().length == 1
+                              ? '0${pickedDate.day.toString()}'
+                              : pickedDate.day.toString();
+                          //
+                          NewMember.date = '$year/$month/$day';
+                        });
+                      },
+                      child: Text(
+                        NewMember.date,
+                        style: const TextStyle(color: Colors.black),
                       ),
                     ),
                   ),
@@ -90,15 +143,24 @@ class _NewMemberState extends State<NewMember> {
                 child: ElevatedButton(
                   onPressed: () {
                     Users item = Users(
-                        id: Random().nextInt(100000),
+                        id: Random().nextInt(99999),
                         name: NewMember.nameControll.text,
                         nationalCode: NewMember.nationalCodeControll.text,
                         fatherName: NewMember.fatherNameControll.text,
-                        date: '1402/01/01',
-                        gender: NewMember.groupId == 1 ? true : false);
+                        date: NewMember.date,
+                        gender: NewMember.groupId == 1 ? true : false,
+                        amount: NewMember.amountControll.text,
+                        payment_method:
+                            NewMember.payMethod == 1 ? true : false);
                     if (NewMember.isEditing) {
-                      // MainScreen.users[NewMember.index] = item;
-                      hiveBox.putAt(NewMember.id, item);
+                      int index = 0;
+                      for (int i = 0; i < hiveBox.values.length; i++) {
+                        if (hiveBox.values.elementAt(i).id == NewMember.id) {
+                          index = i;
+                        }
+                      }
+                      print(index);
+                      hiveBox.putAt(index, item);
                       MyApp.getData();
                     } else {
                       // MainScreen.users.add(item);
@@ -149,6 +211,37 @@ class MyRadio extends StatelessWidget {
   }
 }
 
+class MyRadioPayment extends StatelessWidget {
+  final int value;
+  final int groupValue;
+  final Function(int?) onChanged;
+  final String text;
+
+  const MyRadioPayment({
+    Key? key,
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
+    required this.text,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Radio(
+          value: value,
+          groupValue: groupValue,
+          onChanged: onChanged,
+          activeColor: Colors.black,
+        ),
+        Text(text),
+      ],
+    );
+  }
+}
+
 class MyTextField extends StatelessWidget {
   final String name;
   final TextInputType type;
@@ -163,7 +256,7 @@ class MyTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 25),
+      padding: const EdgeInsets.only(top: 20),
       child: TextField(
         textAlign: TextAlign.right,
         keyboardType: type,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_gym/main.dart';
 import 'package:my_gym/screens/main_screen.dart';
+import 'package:my_gym/screens/new_member.dart';
 
 class DatailScreen extends StatefulWidget {
   final int index;
@@ -86,16 +87,31 @@ class _DatailScreenState extends State<DatailScreen> {
                 children: [
                   Text(" ${MainScreen.users[index].fatherName}  :نام پدر"),
                   Text(
-                      "جنسیت:   ${MainScreen.users[index].gender == 1 ? "خانم" : "آقا"}"),
+                      "جنسیت:   ${MainScreen.users[index].gender ? "خانم" : "آقا"}"),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 25),
-              child: Text(" ${MainScreen.users[index].date}  :تازیخ عضویت"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 25),
+                  child:
+                      Text(" ${MainScreen.users[index].amount}  :مبلغ شهریه"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 25),
+                  child: Text(
+                      "شیوه پرداخت:   ${MainScreen.users[index].payment_method ? "نقد" : "اقساط"}"),
+                )
+              ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 220),
+              padding: const EdgeInsets.only(top: 25),
+              child: Text(" ${MainScreen.users[index].date}  :تاریخ عضویت"),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 180),
               child: Container(
                   width: 260,
                   child: ElevatedButton(
