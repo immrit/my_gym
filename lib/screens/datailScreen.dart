@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_gym/main.dart';
 import 'package:my_gym/screens/main_screen.dart';
-import 'package:my_gym/screens/new_member.dart';
 
 class DatailScreen extends StatefulWidget {
   final int index;
@@ -106,6 +105,21 @@ class _DatailScreenState extends State<DatailScreen> {
                 )
               ],
             ),
+            //
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 25),
+                  child: Text(" ${MainScreen.users[index].coach}  :نام مربی"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 25),
+                  child: Text("رشته ورزشی:   ${MainScreen.users[index].field}"),
+                )
+              ],
+            ),
+            //
             Padding(
               padding: const EdgeInsets.only(top: 25),
               child: Text(" ${MainScreen.users[index].date}  :تاریخ عضویت"),

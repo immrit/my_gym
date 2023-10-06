@@ -37,6 +37,8 @@ class _MainScreenState extends State<MainScreen> {
             NewMember.fatherNameControll.text = '';
             NewMember.nationalCodeControll.text = '';
             NewMember.amountControll.text = '';
+            NewMember.coachController.text = '';
+            NewMember.fieldController.text = '';
             NewMember.date = 'تاریخ';
             NewMember.groupId = 0;
             NewMember.payMethod = 0;

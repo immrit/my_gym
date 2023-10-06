@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:my_gym/models/users.dart';
 import 'package:my_gym/screens/main_screen.dart';
+import 'package:my_gym/screens/new_member.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MainPage(),
+      home: NewMember(),
       debugShowCheckedModeBanner: false,
     );
   }

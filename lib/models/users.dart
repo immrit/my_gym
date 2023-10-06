@@ -20,6 +20,10 @@ class Users {
   String amount;
   @HiveField(8)
   bool payment_method;
+  @HiveField(9)
+  String coach;
+  @HiveField(10)
+  String field;
 
   Users({
     required this.id,
@@ -30,5 +34,7 @@ class Users {
     required this.gender,
     required this.amount,
     required this.payment_method,
+    required this.coach,
+    required this.field,
   });
 }
