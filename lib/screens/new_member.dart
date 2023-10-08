@@ -10,10 +10,13 @@ class NewMember extends StatefulWidget {
   const NewMember({super.key});
   static int groupId = 0;
   static int payMethod = 0;
+  // static int month = 0;
   static TextEditingController nameControll = TextEditingController();
   static TextEditingController fatherNameControll = TextEditingController();
   static TextEditingController nationalCodeControll = TextEditingController();
   static TextEditingController amountControll = TextEditingController();
+  static TextEditingController coachController = TextEditingController();
+  static TextEditingController fieldController = TextEditingController();
   static bool isEditing = false;
   static int id = 0;
   static String date = "تاریخ";
@@ -25,6 +28,36 @@ class _NewMemberState extends State<NewMember> {
   Box<Users> hiveBox = Hive.box('users');
   @override
   Widget build(BuildContext context) {
+    List<String> months = [
+      'فروردین',
+      'اردیبهشت',
+      'خرداد',
+      'تیر',
+      'مرداد',
+      'شهریور',
+      'مهر',
+      'آبان',
+      'آذر',
+      'دی',
+      'بهمن',
+      'اسفند'
+    ];
+    List<bool> values = List.filled(12, false);
+
+    void changeValue(int index, bool newValue) {
+      setState(() {
+        values[index] = newValue;
+      });
+    }
+
+    int countSelected() {
+      int count = 0;
+      for (bool value in values) {
+        if (value) count++;
+      }
+      return count;
+    }
+
     print(NewMember.id);
     return SafeArea(
       child: Scaffold(
@@ -84,6 +117,16 @@ class _NewMemberState extends State<NewMember> {
                 type: TextInputType.number,
                 controller: NewMember.amountControll,
               ),
+              MyTextField(
+                name: 'نام مربی',
+                type: TextInputType.text,
+                controller: NewMember.coachController,
+              ),
+              MyTextField(
+                name: 'رشته',
+                type: TextInputType.text,
+                controller: NewMember.fieldController,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -138,7 +181,36 @@ class _NewMemberState extends State<NewMember> {
                   ),
                 ],
               ),
-              SizedBox(
+              Container(
+                width: double.infinity,
+                alignment: Alignment.centerRight,
+                padding: EdgeInsets.only(top: 15, bottom: 15),
+                child: const Text(":پرداخت شهریه"),
+              ),
+              Container(
+                width: double.infinity,
+                child: Wrap(
+                  direction: Axis.vertical,
+                  children: [
+                    for (int i = 0; i < months.length; i++)
+                      Row(
+                        children: [
+                          // نمایش نام ماه
+                          Text(months[i]),
+                          // نمایش چک باکس با مقدار و تابع تغییر داده شده
+                          Checkbox(
+                            value: values[i],
+                            onChanged: (newValue) => changeValue(i, newValue!),
+                          ),
+                        ],
+                      ),
+                    // نمایش تعداد ماه‌های انتخاب شده
+                    Text('تعداد ماه‌های انتخاب شده: ${countSelected()}'),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.only(top: 20),
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
@@ -150,8 +222,9 @@ class _NewMemberState extends State<NewMember> {
                         date: NewMember.date,
                         gender: NewMember.groupId == 1 ? true : false,
                         amount: NewMember.amountControll.text,
-                        payment_method:
-                            NewMember.payMethod == 1 ? true : false);
+                        payment_method: NewMember.payMethod == 1 ? true : false,
+                        coach: NewMember.coachController.text,
+                        field: NewMember.fieldController.text);
                     if (NewMember.isEditing) {
                       int index = 0;
                       for (int i = 0; i < hiveBox.values.length; i++) {

@@ -1,6 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:my_gym/models/users.dart';
-import 'package:my_gym/screens/main_screen.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 Box<Users> hiveBox = Hive.box('users');
