@@ -42,6 +42,7 @@ class _MainScreenState extends State<MainScreen> {
             NewMember.date = 'تاریخ';
             NewMember.groupId = 0;
             NewMember.payMethod = 0;
+
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (c) => const NewMember()))
                 .then((value) {
@@ -212,6 +213,26 @@ class _ListTileWidgetState extends State<ListTileWidget> {
                         MainScreen.users[widget.index].payment_method ? 1 : 2;
                     NewMember.isEditing = true;
                     NewMember.id = MainScreen.users[widget.index].id;
+                    NewMember.coachController.text =
+                        MainScreen.users[widget.index].coach;
+                    NewMember.fieldController.text =
+                        MainScreen.users[widget.index].field;
+                    NewMember.farvardin =
+                        MainScreen.users[widget.index].farvardin;
+                    NewMember.ordibehesht =
+                        MainScreen.users[widget.index].ordibehesht;
+                    NewMember.khordad = MainScreen.users[widget.index].khordad;
+                    NewMember.tir = MainScreen.users[widget.index].tir;
+                    NewMember.mordad = MainScreen.users[widget.index].mordad;
+                    NewMember.shahrivar =
+                        MainScreen.users[widget.index].shahrivar;
+                    NewMember.mehr = MainScreen.users[widget.index].mehr;
+                    NewMember.aban = MainScreen.users[widget.index].aban;
+                    NewMember.azar = MainScreen.users[widget.index].azar;
+                    NewMember.dey = MainScreen.users[widget.index].dey;
+                    NewMember.bahman = MainScreen.users[widget.index].bahman;
+                    NewMember.esphasnd =
+                        MainScreen.users[widget.index].esphasnd;
 
                     Navigator.of(context)
                         .push(MaterialPageRoute(

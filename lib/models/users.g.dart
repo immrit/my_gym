@@ -27,13 +27,25 @@ class UsersAdapter extends TypeAdapter<Users> {
       payment_method: fields[8] as bool,
       coach: fields[9] as String,
       field: fields[10] as String,
+      farvardin: fields[11] as bool,
+      ordibehesht: fields[12] as bool,
+      khordad: fields[13] as bool,
+      tir: fields[14] as bool,
+      mordad: fields[15] as bool,
+      shahrivar: fields[16] as bool,
+      mehr: fields[17] as bool,
+      aban: fields[18] as bool,
+      azar: fields[19] as bool,
+      dey: fields[20] as bool,
+      bahman: fields[21] as bool,
+      esphasnd: fields[22] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Users obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(22)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)
@@ -53,7 +65,31 @@ class UsersAdapter extends TypeAdapter<Users> {
       ..writeByte(9)
       ..write(obj.coach)
       ..writeByte(10)
-      ..write(obj.field);
+      ..write(obj.field)
+      ..writeByte(11)
+      ..write(obj.farvardin)
+      ..writeByte(12)
+      ..write(obj.ordibehesht)
+      ..writeByte(13)
+      ..write(obj.khordad)
+      ..writeByte(14)
+      ..write(obj.tir)
+      ..writeByte(15)
+      ..write(obj.mordad)
+      ..writeByte(16)
+      ..write(obj.shahrivar)
+      ..writeByte(17)
+      ..write(obj.mehr)
+      ..writeByte(18)
+      ..write(obj.aban)
+      ..writeByte(19)
+      ..write(obj.azar)
+      ..writeByte(20)
+      ..write(obj.dey)
+      ..writeByte(21)
+      ..write(obj.bahman)
+      ..writeByte(22)
+      ..write(obj.esphasnd);
   }
 
   @override

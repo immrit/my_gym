@@ -2,15 +2,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
+
 import 'package:my_gym/main.dart';
 import 'package:my_gym/models/users.dart';
-import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 class NewMember extends StatefulWidget {
   const NewMember({super.key});
   static int groupId = 0;
   static int payMethod = 0;
-  // static int month = 0;
   static TextEditingController nameControll = TextEditingController();
   static TextEditingController fatherNameControll = TextEditingController();
   static TextEditingController nationalCodeControll = TextEditingController();
@@ -20,45 +20,28 @@ class NewMember extends StatefulWidget {
   static bool isEditing = false;
   static int id = 0;
   static String date = "تاریخ";
+  static bool farvardin = false;
+  static bool ordibehesht = false;
+  static bool khordad = false;
+  static bool tir = false;
+  static bool mordad = false;
+  static bool shahrivar = false;
+  static bool mehr = false;
+  static bool aban = false;
+  static bool azar = false;
+  static bool dey = false;
+  static bool bahman = false;
+  static bool esphasnd = false;
+
   @override
   State<NewMember> createState() => _NewMemberState();
 }
 
 class _NewMemberState extends State<NewMember> {
   Box<Users> hiveBox = Hive.box('users');
+
   @override
   Widget build(BuildContext context) {
-    List<String> months = [
-      'فروردین',
-      'اردیبهشت',
-      'خرداد',
-      'تیر',
-      'مرداد',
-      'شهریور',
-      'مهر',
-      'آبان',
-      'آذر',
-      'دی',
-      'بهمن',
-      'اسفند'
-    ];
-    List<bool> values = List.filled(12, false);
-
-    void changeValue(int index, bool newValue) {
-      setState(() {
-        values[index] = newValue;
-      });
-    }
-
-    int countSelected() {
-      int count = 0;
-      for (bool value in values) {
-        if (value) count++;
-      }
-      return count;
-    }
-
-    print(NewMember.id);
     return SafeArea(
       child: Scaffold(
           body: Container(
@@ -184,28 +167,133 @@ class _NewMemberState extends State<NewMember> {
               Container(
                 width: double.infinity,
                 alignment: Alignment.centerRight,
-                padding: EdgeInsets.only(top: 15, bottom: 15),
+                padding: const EdgeInsets.only(top: 15, bottom: 15),
                 child: const Text(":پرداخت شهریه"),
               ),
-              Container(
+              SizedBox(
                 width: double.infinity,
-                child: Wrap(
-                  direction: Axis.vertical,
+                child: Column(
                   children: [
-                    for (int i = 0; i < months.length; i++)
-                      Row(
-                        children: [
-                          // نمایش نام ماه
-                          Text(months[i]),
-                          // نمایش چک باکس با مقدار و تابع تغییر داده شده
-                          Checkbox(
-                            value: values[i],
-                            onChanged: (newValue) => changeValue(i, newValue!),
-                          ),
-                        ],
-                      ),
-                    // نمایش تعداد ماه‌های انتخاب شده
-                    Text('تعداد ماه‌های انتخاب شده: ${countSelected()}'),
+                    CheckboxListTile(
+                      value: NewMember.farvardin,
+                      title: Text('فروردین'),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          NewMember.farvardin = value!;
+                          print(value);
+                        });
+                      },
+                    ),
+                    CheckboxListTile(
+                      value: NewMember.ordibehesht,
+                      title: Text('اردیبهشت'),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          NewMember.ordibehesht = value!;
+                          print(value);
+                        });
+                      },
+                    ),
+                    CheckboxListTile(
+                      value: NewMember.khordad,
+                      title: Text('خرداد'),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          NewMember.khordad = value!;
+                          print(value);
+                        });
+                      },
+                    ),
+                    CheckboxListTile(
+                      value: NewMember.tir,
+                      title: Text('تیر'),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          NewMember.tir = value!;
+                          print(value);
+                        });
+                      },
+                    ),
+                    CheckboxListTile(
+                      value: NewMember.mordad,
+                      title: Text('مرداد'),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          NewMember.mordad = value!;
+                          print(value);
+                        });
+                      },
+                    ),
+                    CheckboxListTile(
+                      value: NewMember.shahrivar,
+                      title: Text('شهریور'),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          NewMember.shahrivar = value!;
+                          print(value);
+                        });
+                      },
+                    ),
+                    CheckboxListTile(
+                      value: NewMember.mehr,
+                      title: Text('مهر'),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          NewMember.mehr = value!;
+                          print(value);
+                        });
+                      },
+                    ),
+                    CheckboxListTile(
+                      value: NewMember.aban,
+                      title: Text('آبان'),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          NewMember.aban = value!;
+                          print(value);
+                        });
+                      },
+                    ),
+                    CheckboxListTile(
+                      value: NewMember.azar,
+                      title: Text('آذر'),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          NewMember.azar = value!;
+                          print(value);
+                        });
+                      },
+                    ),
+                    CheckboxListTile(
+                      value: NewMember.dey,
+                      title: Text('دی'),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          NewMember.dey = value!;
+                          print(value);
+                        });
+                      },
+                    ),
+                    CheckboxListTile(
+                      value: NewMember.bahman,
+                      title: Text('بهمن'),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          NewMember.bahman = value!;
+                          print(value);
+                        });
+                      },
+                    ),
+                    CheckboxListTile(
+                      value: NewMember.esphasnd,
+                      title: Text('اسفند'),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          NewMember.esphasnd = value!;
+                          print(value);
+                        });
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -215,16 +303,29 @@ class _NewMemberState extends State<NewMember> {
                 child: ElevatedButton(
                   onPressed: () {
                     Users item = Users(
-                        id: Random().nextInt(99999),
-                        name: NewMember.nameControll.text,
-                        nationalCode: NewMember.nationalCodeControll.text,
-                        fatherName: NewMember.fatherNameControll.text,
-                        date: NewMember.date,
-                        gender: NewMember.groupId == 1 ? true : false,
-                        amount: NewMember.amountControll.text,
-                        payment_method: NewMember.payMethod == 1 ? true : false,
-                        coach: NewMember.coachController.text,
-                        field: NewMember.fieldController.text);
+                      id: Random().nextInt(99999),
+                      name: NewMember.nameControll.text,
+                      nationalCode: NewMember.nationalCodeControll.text,
+                      fatherName: NewMember.fatherNameControll.text,
+                      date: NewMember.date,
+                      gender: NewMember.groupId == 1 ? true : false,
+                      amount: NewMember.amountControll.text,
+                      payment_method: NewMember.payMethod == 1 ? true : false,
+                      coach: NewMember.coachController.text,
+                      field: NewMember.fieldController.text,
+                      farvardin: NewMember.farvardin,
+                      ordibehesht: NewMember.ordibehesht,
+                      aban: NewMember.aban,
+                      azar: NewMember.azar,
+                      bahman: NewMember.bahman,
+                      dey: NewMember.dey,
+                      esphasnd: NewMember.esphasnd,
+                      khordad: NewMember.khordad,
+                      mehr: NewMember.mehr,
+                      mordad: NewMember.mordad,
+                      shahrivar: NewMember.shahrivar,
+                      tir: NewMember.tir,
+                    );
                     if (NewMember.isEditing) {
                       int index = 0;
                       for (int i = 0; i < hiveBox.values.length; i++) {
@@ -232,7 +333,6 @@ class _NewMemberState extends State<NewMember> {
                           index = i;
                         }
                       }
-                      print(index);
                       hiveBox.putAt(index, item);
                       MyApp.getData();
                     } else {
@@ -339,6 +439,36 @@ class MyTextField extends StatelessWidget {
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(15))),
       ),
+    );
+  }
+}
+
+class CheckBoxMonth extends StatefulWidget {
+  String monthName;
+  bool variableName;
+
+  CheckBoxMonth({
+    Key? key,
+    required this.monthName,
+    required this.variableName,
+  }) : super(key: key);
+
+  @override
+  State<CheckBoxMonth> createState() => _CheckBoxMonthState();
+}
+
+class _CheckBoxMonthState extends State<CheckBoxMonth> {
+  @override
+  Widget build(BuildContext context) {
+    return CheckboxListTile(
+      value: widget.variableName,
+      title: Text(widget.monthName),
+      onChanged: (bool? value) {
+        setState(() {
+          widget.variableName = value!;
+          print(value);
+        });
+      },
     );
   }
 }

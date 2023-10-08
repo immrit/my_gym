@@ -24,6 +24,30 @@ class Users {
   String coach;
   @HiveField(10)
   String field;
+  @HiveField(11)
+  bool farvardin;
+  @HiveField(12)
+  bool ordibehesht;
+  @HiveField(13)
+  bool khordad;
+  @HiveField(14)
+  bool tir;
+  @HiveField(15)
+  bool mordad;
+  @HiveField(16)
+  bool shahrivar;
+  @HiveField(17)
+  bool mehr;
+  @HiveField(18)
+  bool aban;
+  @HiveField(19)
+  bool azar;
+  @HiveField(20)
+  bool dey;
+  @HiveField(21)
+  bool bahman;
+  @HiveField(22)
+  bool esphasnd;
 
   Users({
     required this.id,
@@ -36,5 +60,17 @@ class Users {
     required this.payment_method,
     required this.coach,
     required this.field,
+    required this.farvardin,
+    required this.ordibehesht,
+    required this.khordad,
+    required this.tir,
+    required this.mordad,
+    required this.shahrivar,
+    required this.mehr,
+    required this.aban,
+    required this.azar,
+    required this.dey,
+    required this.bahman,
+    required this.esphasnd,
   });
 }
